@@ -1,0 +1,2 @@
+QR Code Generator for JavaScript. Copyright (c) 2009 Kazuhiko Arase. Licensed under the MIT license. https://www.opensource.org/licenses/mit-license.php
+Original license notice is preserved at the top of qrcode.js.
