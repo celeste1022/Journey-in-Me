@@ -97,7 +97,7 @@ function deviceArt(state){
  return '<svg viewBox="0 0 176 100" role="img" aria-label="'+({disconnected:'Connect your device',empty:'Insert your card',wrong:'Replace the card',matched:'Card matched'})[state]+'"><g fill="none" stroke="#52674f" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">'+art+'</g></svg>';
 }
 const baseJoinRoom=joinRoom;
-joinRoom=function(id){baseJoinRoom(id);room.members.forEach(m=>m.device=m.name==='You'?'disconnected':'matched');renderRoom();};
+joinRoom=function(id){baseJoinRoom(id);room.members.forEach(m=>m.device='matched');renderRoom();};
 const baseRenderRoom=renderRoom;
 renderRoom=function(){baseRenderRoom();if(!room)return;const guide=$('deviceGuide'),me=room.members.find(m=>m.name==='You');guide.hidden=room.phase!=='waiting';if(guide.hidden)return;
  const state=me.device||'disconnected';const titles={disconnected:'Connect your device',empty:'Insert your card',wrong:'Use the matching card',matched:'Card ready'};
