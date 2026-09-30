@@ -1,0 +1,39 @@
+name: Publish My Friends
+on:
+  push:
+    branches: [My-friend]
+    paths: ['My-friend/**', '.github/workflows/my-friend-pages.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: false
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}my-friend/
+    steps:
+      - name: Checkout My Friends
+        uses: actions/checkout@v6
+      - name: Checkout existing site
+        uses: actions/checkout@v6
+        with:
+          ref: main
+          path: existing-site
+      - name: Assemble public demos
+        run: |
+          mkdir -p _site/my-friend
+          cp -a existing-site/Create-V1/dist/. _site/
+          cp My-friend/index.html _site/my-friend/index.html
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: _site
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
