@@ -30,6 +30,7 @@ jobs:
           mkdir -p _site/my-friend
           cp -a existing-site/Create-V1/dist/. _site/
           cp My-friend/index.html _site/my-friend/index.html
+          cp -a My-friend/reminder-options _site/my-friend/reminder-options
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v4
         with:
