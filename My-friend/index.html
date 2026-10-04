@@ -172,9 +172,9 @@ const demoOwnStart=Date.now()+2*86400000;
 inviteMessages.push({id:90,owner:true,from:'You',title:'A quiet evening together',card:3,cardName:'Resting here',practice:'Resting here · 20 min',minutes:20,names:['Annie','Gabor'],people:'Annie, Gabor & you',startsAt:demoOwnStart,when:new Date(demoOwnStart).toLocaleString([],{dateStyle:'medium',timeStyle:'short'}),version:1,state:'pending',unread:false,viewerName:'Linghui',participants:[{name:'Linghui',organizer:true,status:'accepted'},{name:'Annie',status:'accepted'},{name:'Gabor',status:'pending'}]});
 
 function renderClosedInvitations(history){
- const items=history.filter(m=>m.state!=='declined');
+ const items=history;
  if(!items.length)return '';
- return `<details class="scheduleArchive"><summary>Inactive invitations <span>${items.length}</span></summary>${items.map(m=>`<article class="message"><h3>${safeText(m.title)}</h3><p>${safeText(m.when)}<br>${m.state==='cancelled'?'Cancelled by the organizer':m.state==='left'?'You left this appointment':'Expired · Not accepted before the scheduled time'}</p></article>`).join('')}</details>`;
+ return `<details class="scheduleArchive"><summary>Inactive invitations <span>${items.length}</span></summary>${items.map(m=>`<article class="message"><h3>${safeText(m.title)}</h3><p>${safeText(m.when)}<br>${m.state==='cancelled'?'Cancelled by the organizer':m.state==='left'?'You left this appointment':m.state==='declined'?'Declined':'Expired · Not accepted before the scheduled time'}</p></article>`).join('')}</details>`;
 }
 // A prototype-only preview entry; no cross-link is added inside the product.
 const calendarPreview=document.createElement('button');calendarPreview.textContent='06 · Practice 日历预览（已接受邀约）';calendarPreview.onclick=()=>{const record=practiceMessageGroups().upcoming.find(m=>!m.owner&&m.state==='accepted');if(record)openFeature('practice',record,'calendar')};document.querySelector('.demoControls').insertBefore(calendarPreview,document.querySelector('.demoControls label'));
