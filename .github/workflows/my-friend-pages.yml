@@ -2,7 +2,7 @@ name: Publish My Friends
 on:
   push:
     branches: [My-friend]
-    paths: ['My-friend/**', '.github/workflows/my-friend-pages.yml']
+    paths: ['My-friend/**', 'Practice/**', '.github/workflows/my-friend-pages.yml']
   workflow_dispatch:
 permissions:
   contents: read
@@ -27,10 +27,11 @@ jobs:
           path: existing-site
       - name: Assemble public demos
         run: |
-          mkdir -p _site/my-friend
+          mkdir -p _site/my-friend _site/practice
           cp -a existing-site/Create-V1/dist/. _site/
           cp My-friend/index.html _site/my-friend/index.html
           cp -a My-friend/reminder-options _site/my-friend/reminder-options
+          cp -a Practice/. _site/practice/
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v4
         with:

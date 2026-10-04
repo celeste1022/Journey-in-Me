@@ -1,0 +1,218 @@
+{
+  "00-main-0": {
+    "figma": "182:2",
+    "frame": "00-main-0"
+  },
+  "01-entry-0": {
+    "figma": "182:153",
+    "frame": "01-entry-0"
+  },
+  "01-entry-1": {
+    "figma": "182:153",
+    "frame": "01-entry-1"
+  },
+  "01a-writing-0": {
+    "figma": "182:220",
+    "frame": "01a-writing-0"
+  },
+  "01a-writing-1": {
+    "figma": "182:220",
+    "frame": "01a-writing-1"
+  },
+  "02a-ready-0": {
+    "figma": "182:265",
+    "frame": "02a-ready-0"
+  },
+  "02a-ready-1": {
+    "figma": "182:265",
+    "frame": "02a-ready-1"
+  },
+  "02-voice-0": {
+    "figma": "182:330",
+    "frame": "02-voice-0"
+  },
+  "02-voice-1": {
+    "figma": "182:330",
+    "frame": "02-voice-1"
+  },
+  "02-voice-2": {
+    "figma": "182:330",
+    "frame": "02-voice-2"
+  },
+  "03-library-0": {
+    "figma": "182:480",
+    "frame": "03-library-0"
+  },
+  "03-library-1": {
+    "figma": "182:480",
+    "frame": "03-library-1"
+  },
+  "04-card-0": {
+    "figma": "182:553",
+    "frame": "04-card-0"
+  },
+  "04-card-1": {
+    "figma": "182:553",
+    "frame": "04-card-1"
+  },
+  "05-sound-0": {
+    "figma": "182:621",
+    "frame": "05-sound-0"
+  },
+  "05-sound-1": {
+    "figma": "182:621",
+    "frame": "05-sound-1"
+  },
+  "06-recovery-0": {
+    "figma": "182:666",
+    "frame": "06-recovery-0"
+  },
+  "06-recovery-1": {
+    "figma": "182:666",
+    "frame": "06-recovery-1"
+  },
+  "08-recording-permission-0": {
+    "figma": "182:699",
+    "frame": "08-recording-permission-0"
+  },
+  "08-recording-permission-1": {
+    "figma": "182:699",
+    "frame": "08-recording-permission-1"
+  },
+  "08-recording-permission-2": {
+    "figma": "182:699",
+    "frame": "08-recording-permission-2"
+  },
+  "09-recording-recovery-0": {
+    "figma": "182:765",
+    "frame": "09-recording-recovery-0"
+  },
+  "09-recording-recovery-1": {
+    "figma": "182:765",
+    "frame": "09-recording-recovery-1"
+  },
+  "09-recording-recovery-2": {
+    "figma": "182:765",
+    "frame": "09-recording-recovery-2"
+  },
+  "10-save-states-0": {
+    "figma": "182:834",
+    "frame": "10-save-states-0"
+  },
+  "10-save-states-1": {
+    "figma": "182:834",
+    "frame": "10-save-states-1"
+  },
+  "10-save-states-2": {
+    "figma": "182:834",
+    "frame": "10-save-states-2"
+  },
+  "11-library-states-0": {
+    "figma": "182:950",
+    "frame": "11-library-states-0"
+  },
+  "11-library-states-1": {
+    "figma": "182:950",
+    "frame": "11-library-states-1"
+  },
+  "11-library-states-2": {
+    "figma": "182:950",
+    "frame": "11-library-states-2"
+  },
+  "12-record-details-0": {
+    "figma": "182:994",
+    "frame": "12-record-details-0"
+  },
+  "12-record-details-1": {
+    "figma": "182:994",
+    "frame": "12-record-details-1"
+  },
+  "12-record-details-2": {
+    "figma": "182:994",
+    "frame": "12-record-details-2"
+  },
+  "13-record-management-0": {
+    "figma": "182:1110",
+    "frame": "13-record-management-0"
+  },
+  "13-record-management-1": {
+    "figma": "182:1110",
+    "frame": "13-record-management-1"
+  },
+  "13-record-management-2": {
+    "figma": "182:1110",
+    "frame": "13-record-management-2"
+  },
+  "14-card-validation-0": {
+    "figma": "182:1176",
+    "frame": "14-card-validation-0"
+  },
+  "14-card-validation-1": {
+    "figma": "182:1176",
+    "frame": "14-card-validation-1"
+  },
+  "base-02-1-0": {
+    "figma": "182:1269",
+    "frame": "base-02-1-0"
+  },
+  "base-02-2-0": {
+    "figma": "182:1366",
+    "frame": "base-02-2-0"
+  },
+  "base-04-2-0": {
+    "figma": "182:1419",
+    "frame": "base-04-2-0"
+  },
+  "base-04-2-1": {
+    "figma": "182:1419",
+    "frame": "base-04-2-1"
+  },
+  "base-05-1-0": {
+    "figma": "182:1477",
+    "frame": "base-05-1-0"
+  },
+  "base-05-1-1": {
+    "figma": "182:1477",
+    "frame": "base-05-1-1"
+  },
+  "base-05-1-2": {
+    "figma": "182:1477",
+    "frame": "base-05-1-2"
+  },
+  "base-05-1-3": {
+    "figma": "182:1477",
+    "frame": "base-05-1-3"
+  },
+  "base-06-1-0": {
+    "figma": "182:1585",
+    "frame": "base-06-1-0"
+  },
+  "base-07-1-0": {
+    "figma": "182:1669",
+    "frame": "base-07-1-0"
+  },
+  "base-08-1-0": {
+    "figma": "182:1720",
+    "frame": "base-08-1-0"
+  },
+  "base-12-1-0": {
+    "figma": "182:1797",
+    "frame": "base-12-1-0"
+  },
+  "base-13-1-0": {
+    "figma": "182:1859",
+    "frame": "base-13-1-0"
+  },
+  "base-14-1-0": {
+    "figma": "182:1899",
+    "frame": "base-14-1-0"
+  },
+  "base-15-1-0": {
+    "figma": "182:1964",
+    "frame": "base-15-1-0"
+  },
+  "base-15-2-0": {
+    "figma": "182:2006",
+    "frame": "base-15-2-0"
+  }
+}
