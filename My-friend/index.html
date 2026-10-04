@@ -176,5 +176,8 @@ function renderClosedInvitations(history){
  if(!items.length)return '';
  return `<details class="scheduleArchive"><summary>Inactive invitations <span>${items.length}</span></summary>${items.map(m=>`<article class="message"><h3>${safeText(m.title)}</h3><p>${safeText(m.when)}<br>${m.state==='cancelled'?'Cancelled by the organizer':m.state==='left'?'You left this appointment':'Expired · Not accepted before the scheduled time'}</p></article>`).join('')}</details>`;
 }
+// A prototype-only preview entry; no cross-link is added inside the product.
+const calendarPreview=document.createElement('button');calendarPreview.textContent='06 · Practice 日历预览（已接受邀约）';calendarPreview.onclick=()=>{const record=practiceMessageGroups().upcoming.find(m=>!m.owner&&m.state==='accepted');if(record)openFeature('practice',record,'calendar')};document.querySelector('.demoControls').insertBefore(calendarPreview,document.querySelector('.demoControls label'));
+if(new URLSearchParams(location.search).get('preview')==='calendar')calendarPreview.onclick();
 
 </script></html>
