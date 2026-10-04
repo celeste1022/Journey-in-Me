@@ -172,8 +172,9 @@ const demoOwnStart=Date.now()+2*86400000;
 inviteMessages.push({id:90,owner:true,from:'You',title:'A quiet evening together',card:3,cardName:'Resting here',practice:'Resting here · 20 min',minutes:20,names:['Annie','Gabor'],people:'Annie, Gabor & you',startsAt:demoOwnStart,when:new Date(demoOwnStart).toLocaleString([],{dateStyle:'medium',timeStyle:'short'}),version:1,state:'pending',unread:false,viewerName:'Linghui',participants:[{name:'Linghui',organizer:true,status:'accepted'},{name:'Annie',status:'accepted'},{name:'Gabor',status:'pending'}]});
 
 function renderClosedInvitations(history){
- const groups=[['cancelled','Cancelled appointments','Cancelled by the organizer'],['declined','Declined invitations','You declined this invitation'],['left','Appointments you left','You left this appointment'],['expired','Expired invitations','Not accepted before the scheduled time']];
- return groups.map(([state,title,label])=>{const items=history.filter(m=>(['cancelled','declined','left'].includes(m.state)?m.state:'expired')===state);return items.length?`<details class="scheduleArchive"><summary>${title} <span>${items.length}</span></summary>${items.map(m=>`<article class="message"><h3>${safeText(m.title)}</h3><p>${safeText(m.when)}<br>${label}</p></article>`).join('')}</details>`:''}).join('');
+ const items=history.filter(m=>m.state!=='declined');
+ if(!items.length)return '';
+ return `<details class="scheduleArchive"><summary>Inactive invitations <span>${items.length}</span></summary>${items.map(m=>`<article class="message"><h3>${safeText(m.title)}</h3><p>${safeText(m.when)}<br>${m.state==='cancelled'?'Cancelled by the organizer':m.state==='left'?'You left this appointment':'Expired · Not accepted before the scheduled time'}</p></article>`).join('')}</details>`;
 }
 
 </script></html>
