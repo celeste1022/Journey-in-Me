@@ -26,13 +26,14 @@ jobs:
         uses: actions/configure-pages@v5
       - name: Assemble demos
         run: |
-          mkdir -p _site/share _site/practice _site/my-friend _site/home _site/connect-device
+          mkdir -p _site/share _site/practice _site/my-friend _site/home _site/connect-device _site/my
           cp -a Create-V1/dist/. _site/
           cp Share-V4/index.html _site/share/index.html
           cp -a practice-source/Practice/. _site/practice/
           cp practice-source/My-friend/index.html _site/my-friend/index.html
           cp -a practice-source/My-friend/reminder-options _site/my-friend/reminder-options
           cp practice-source/Home/index.html _site/home/index.html
+          cp -a practice-source/My/. _site/my/
           cp -a Speaker-Connection/dist/. _site/connect-device/
       - name: Upload demos
         uses: actions/upload-pages-artifact@v4
