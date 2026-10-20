@@ -17,13 +17,21 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
+      - name: Checkout Practice and My Friends
+        uses: actions/checkout@v6
+        with:
+          ref: My-friend
+          path: practice-source
       - name: Configure Pages
         uses: actions/configure-pages@v5
       - name: Assemble demos
         run: |
-          mkdir -p _site/share
+          mkdir -p _site/share _site/practice _site/my-friend
           cp -a Create-V1/dist/. _site/
           cp Share-V4/index.html _site/share/index.html
+          cp -a practice-source/Practice/. _site/practice/
+          cp practice-source/My-friend/index.html _site/my-friend/index.html
+          cp -a practice-source/My-friend/reminder-options _site/my-friend/reminder-options
       - name: Upload demos
         uses: actions/upload-pages-artifact@v4
         with:
