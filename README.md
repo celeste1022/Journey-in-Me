@@ -1,5 +1,13 @@
 # Journey in Me
 
+## Share V4
+
+**[打开 Share Demo](https://celeste1022.github.io/Journey-in-Me/share/)**
+
+Practice wish list、Public/Private、左滑删除、好友全屏浏览、团体练习与 Sound Bazaar。所有内容为本地演示，数据保存在浏览器中。
+
+源文件：[Share-V4/index.html](Share-V4/index.html)。
+
 ## Create V1
 
 Journey in Me 的 Paper Zen 风格交互 Demo。当前版本为 **Create V1**，完整代码、预览素材、音频、许可文件和校验测试保存在 [Create-V1](Create-V1/) 中。
@@ -26,11 +34,11 @@ node --test tests/card-validation.test.mjs
 
 ### GitHub Pages
 
-已准备 `Publish Create V1` 工作流，仅发布 `Create-V1/dist`，不会发布测试、说明文档或其他版本。
+已准备 `Publish Journey in Me Demos` 工作流，将 `Create-V1/dist` 发布到根目录，将 `Share-V4/index.html` 发布到 `/share/`。
 
 本仓库为公开仓库，Create V1 已通过 GitHub Pages 发布，无需登录即可打开。
 
-更新网站：推送代码后，在 Actions → Publish Create V1 → Run workflow 中运行发布。发布成功后，以上 Demo 地址会更新。
+更新网站：推送代码后，在 Actions → Publish Journey in Me Demos → Run workflow 中运行发布。发布成功后，以上 Demo 地址会更新。
 
 ### Demo 范围
 
