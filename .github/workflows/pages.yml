@@ -1,5 +1,8 @@
-name: Publish Create V1
+name: Publish Journey in Me Demos
 on:
+  push:
+    branches: [main]
+    paths: ['Integration/**', 'Create-V1/**', 'Share-V4/**', 'Speaker-Connection/**', '.github/workflows/pages.yml']
   workflow_dispatch:
 permissions:
   contents: read
@@ -15,14 +18,26 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Checkout
+      - name: Checkout shared application
         uses: actions/checkout@v6
+        with:
+          ref: main
+      - name: Checkout personal demos
+        uses: actions/checkout@v6
+        with:
+          ref: My-friend
+          path: practice-source
       - name: Configure Pages
         uses: actions/configure-pages@v5
-      - name: Upload Create V1
-        uses: actions/upload-pages-artifact@v4
+      - name: Assemble unified application
+        run: python3 Integration/assemble.py . practice-source _site
+      - name: Validate original flows
+        run: node --test Speaker-Connection/tests/flow.test.mjs Create-V1/tests/card-validation.test.mjs Integration/navigation.test.mjs
+      - name: Validate integration
+        run: python3 Integration/test_assembly.py . practice-source
+      - uses: actions/upload-pages-artifact@v4
         with:
-          path: Create-V1/dist
+          path: _site
       - name: Deploy
         id: deployment
         uses: actions/deploy-pages@v4

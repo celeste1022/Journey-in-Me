@@ -1,8 +1,8 @@
-name: Publish My Friends
+name: Publish Journey in Me Personal Demos
 on:
   push:
     branches: [My-friend]
-    paths: ['My-friend/**', 'Practice/**', 'Home/**', 'My/**', '.github/workflows/my-friend-pages.yml']
+    paths: ['Practice/**', 'Home/**', 'My/**', 'My-friend/**', '.github/workflows/my-friend-pages.yml']
   workflow_dispatch:
 permissions:
   contents: read
@@ -16,27 +16,25 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}my-friend/
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Checkout My Friends
-        uses: actions/checkout@v6
-      - name: Checkout existing site
+      - name: Checkout shared application
         uses: actions/checkout@v6
         with:
           ref: main
-          path: existing-site
-      - name: Assemble public demos
-        run: |
-          mkdir -p _site/my-friend _site/practice _site/share _site/home _site/connect-device _site/my
-          cp -a existing-site/Create-V1/dist/. _site/
-          cp existing-site/Share-V4/index.html _site/share/index.html
-          cp My-friend/index.html _site/my-friend/index.html
-          cp -a My-friend/reminder-options _site/my-friend/reminder-options
-          cp -a Practice/. _site/practice/
-          cp Home/index.html _site/home/index.html
-          cp -a My/. _site/my/
-          cp -a existing-site/Speaker-Connection/dist/. _site/connect-device/
-      - uses: actions/configure-pages@v5
+      - name: Checkout personal demos
+        uses: actions/checkout@v6
+        with:
+          ref: My-friend
+          path: practice-source
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+      - name: Assemble unified application
+        run: python3 Integration/assemble.py . practice-source _site
+      - name: Validate original flows
+        run: node --test Speaker-Connection/tests/flow.test.mjs Create-V1/tests/card-validation.test.mjs Integration/navigation.test.mjs
+      - name: Validate integration
+        run: python3 Integration/test_assembly.py . practice-source
       - uses: actions/upload-pages-artifact@v4
         with:
           path: _site
