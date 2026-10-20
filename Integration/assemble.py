@@ -2,6 +2,8 @@
 from pathlib import Path
 import shutil
 import sys
+import html
+import re
 
 
 def assemble(main, personal, target):
@@ -37,13 +39,36 @@ try{const device=JSON.parse(localStorage.getItem('journey-device'));if(device?.p
         raise SystemExit('My speaker integration point changed')
     text=text.replace(old,new)
     my.write_text(text)
-    for html in target.rglob('*.html'):
-        relative='../'*len(html.relative_to(target).parts[:-1])
-        content=html.read_text()
+    # Home intentionally isolates its srcdoc and permits inline scripts only.
+    # Connect it through a small allowlisted message bridge, preserving its sandbox/CSP.
+    home=target/'home/index.html'
+    home_text=home.read_text()
+    match=re.search(r'srcdoc="([\s\S]*?)"\s*>',home_text)
+    if not match:
+        raise SystemExit('Home srcdoc integration point changed')
+    inner=html.unescape(match.group(1))
+    bridge="""<script>
+(() => { const names=['home','practice','create','share'];
+ document.querySelectorAll('.hj-nav-item').forEach((el,i)=>{
+ el.setAttribute('role','link');el.tabIndex=0;el.style.cursor='pointer';
+ const open=()=>parent.postMessage({channel:'journey-navigate',route:names[i]},'*');
+ el.addEventListener('click',open);el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();open();}});
+ });
+})();
+</script>"""
+    inner=inner.replace('</body>',bridge+'</body>')
+    home_text=home_text[:match.start(1)]+html.escape(inner,quote=True)+home_text[match.end(1):]
+    receiver="""<script>
+window.addEventListener('message',e=>{const f=document.querySelector('iframe');if(e.source!==f.contentWindow||e.data?.channel!=='journey-navigate')return;const urls={home:'../home/',practice:'../practice/',create:'../create/#/create',share:'../share/'};const url=urls[e.data.route];if(url)window.top.location.assign(new URL(url,location.href).href);});
+</script>"""
+    home.write_text(home_text.replace('</body>',receiver+'</body>'))
+    for page in target.rglob('*.html'):
+        relative='../'*len(page.relative_to(target).parts[:-1])
+        content=page.read_text()
         # Append after module initialization (defer classic script until parsing is done).
         tag=f'<script defer src="{relative}journey-navigation.js"></script>'
         content=content.replace('</body>',tag+'</body>') if '</body>' in content else content+tag
-        html.write_text(content)
+        page.write_text(content)
     (target/'index.html').write_text('''<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Journey in Me</title><body><a href="home/">Enter Journey in Me</a><script>
 const hash=location.hash;
 const legacy=hash.startsWith('#/')&&hash!=='#/home';
