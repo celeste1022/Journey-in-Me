@@ -1,0 +1,43 @@
+name: Publish Journey in Me Personal Demos
+on:
+  push:
+    branches: [My-friend]
+    paths: ['Practice/**', 'Home/**', 'My/**', 'My-friend/**', '.github/workflows/my-friend-pages.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: false
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout shared application
+        uses: actions/checkout@v6
+        with:
+          ref: main
+      - name: Checkout personal demos
+        uses: actions/checkout@v6
+        with:
+          ref: My-friend
+          path: practice-source
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+      - name: Assemble unified application
+        run: python3 Integration/assemble.py . practice-source _site
+      - name: Validate original flows
+        run: node --test Speaker-Connection/tests/flow.test.mjs Create-V1/tests/card-validation.test.mjs Integration/navigation.test.mjs
+      - name: Validate integration
+        run: python3 Integration/test_assembly.py . practice-source
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: _site
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
