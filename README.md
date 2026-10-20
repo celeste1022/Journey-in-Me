@@ -1,5 +1,13 @@
 # Journey in Me
 
+## 2. 连接设备
+
+**[打开连接设备 Demo](https://celeste1022.github.io/Journey-in-Me/connect-device/)**
+
+开始绑定、扫描音箱、页内展开 Wi-Fi、配网、固件更新到 Home 的完整交互。演示情景支持扫描超时、配网失败、更新失败和断电恢复，支持手机浏览与等待快进。蓝牙、Wi-Fi 和固件过程均为模拟，请使用任意演示密码。
+
+源文件、流程说明与校验：[Speaker-Connection](Speaker-Connection/)。
+
 ## Share V4
 
 **[打开 Share Demo](https://celeste1022.github.io/Journey-in-Me/share/)**
@@ -34,7 +42,9 @@ node --test tests/card-validation.test.mjs
 
 ### GitHub Pages
 
-已准备 `Publish Journey in Me Demos` 工作流，将 `Create-V1/dist` 发布到根目录，将 `Share-V4/index.html` 发布到 `/share/`。
+已准备 `Publish Journey in Me Demos` 工作流，将 `Create-V1/dist` 发布到根目录，将 Share、Practice、My Friends、Home、连接设备分别发布到 `/share/`、`/practice/`、`/my-friend/`、`/home/`、`/connect-device/`。
+
+`main` 分支保存 Create、Share 和连接设备；`My-friend` 分支保存 Practice、My Friends 和 Home。两套发布工作流均需组装全部 Demo，避免发布其他功能时遗漏已有页面。
 
 本仓库为公开仓库，Create V1 已通过 GitHub Pages 发布，无需登录即可打开。
 

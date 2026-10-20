@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#F6F6F2"><meta name="description" content="Journey in Me · 连接冥想音箱的完整交互演示"><title>2. 连接设备 · Journey in Me</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="styles.css"></head>
+<body>
+<header class="site-header"><span class="wordmark">Journey in Me<span class="brand-dot">.</span></span><span class="header-note">PRODUCT EXPERIENCE / 02</span><span class="demo-badge"><i></i> 交互演示</span></header>
+<main class="review-layout">
+<aside class="review-panel">
+  <div class="intro"><p class="eyebrow">A MOMENT TO CONNECT</p><h1>连接，<br>从此刻开始。</h1><p class="intro-copy">让音箱成为日常的一部分。<br>体验从首次绑定到准备就绪的完整旅程。</p></div>
+  <ol class="journey-steps" aria-label="连接流程"><li data-step="0"><span>01</span><div>准备与发现<small>让 App 找到你的音箱</small></div></li><li data-step="1"><span>02</span><div>连接 Wi-Fi<small>选择网络，确认连接</small></div></li><li data-step="2"><span>03</span><div>更新与就绪<small>准备好，回到自己的节奏</small></div></li></ol>
+  <details class="demo-controls" open><summary>演示情景<span aria-hidden="true">＋</span></summary><div class="controls-body"><label for="scenario">选择一条体验路径</label><select id="scenario"></select><p id="scenario-description"></p><button class="control-primary" id="run-scenario">体验所选情景 <span aria-hidden="true">↗</span></button><div class="control-row"><button id="reset-demo">从头体验</button><button id="skip-wait">快进等待</button></div><div class="control-row speed-row"><label for="speed">演示速度</label><select id="speed"><option value="1">正常 · 1×</option><option value="4">加速 · 4×</option></select></div><label for="recovery-outcome" class="recovery-label" hidden>恢复时读到的设备状态<select id="recovery-outcome"><option value="installed">新版本已运行</option><option value="downloading">下载未完成</option><option value="installing">仍在安装</option></select></label></div></details>
+  <p class="demo-note">蓝牙、Wi-Fi 和更新过程均为模拟。<br>密码仅留在本次页面内，请使用任意演示密码。</p>
+</aside>
+<section class="phone-stage" aria-label="App 演示"><div class="phone"><div class="statusbar" aria-hidden="true"><span>9:41</span><span class="system-icons">▮▮▮ <svg viewBox="0 0 20 20"><path d="M2 7a12 12 0 0 1 16 0M5 10a8 8 0 0 1 10 0m-7 3a4 4 0 0 1 4 0"/><circle cx="10" cy="16" r=".7"/></svg><svg viewBox="0 0 26 16"><rect x="1" y="2" width="21" height="12" rx="3"/><path d="M24 6v4"/><rect x="4" y="5" width="15" height="6" rx="1" fill="currentColor" stroke="none"/></svg></span></div><div id="app" lang="en"></div><div class="home-indicator" aria-hidden="true"></div></div><div class="screen-caption"><span id="screen-label">P01 · 开始绑定</span><span>2. 连接设备</span></div></section>
+</main><div class="sr-only" id="announcement" role="status" aria-live="polite"></div><script type="module" src="app.mjs"></script>
+</body></html>
