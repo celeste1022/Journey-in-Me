@@ -27,8 +27,9 @@ jobs:
           path: existing-site
       - name: Assemble public demos
         run: |
-          mkdir -p _site/my-friend _site/practice
+          mkdir -p _site/my-friend _site/practice _site/share
           cp -a existing-site/Create-V1/dist/. _site/
+          cp existing-site/Share-V4/index.html _site/share/index.html
           cp My-friend/index.html _site/my-friend/index.html
           cp -a My-friend/reminder-options _site/my-friend/reminder-options
           cp -a Practice/. _site/practice/
