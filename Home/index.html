@@ -1208,7 +1208,7 @@ html&gt;body{padding:0}&lt;/style&gt;
   let lastTime=performance.now(),lastStatus=&#x27;&#x27;,lastAnnounced=&#x27;&#x27;,step=312;
   function isAvailable(){
     const cardRect=viewport.getBoundingClientRect(),pageRect=main.getBoundingClientRect();
-    return observedVisible&amp;&amp;!simAway&amp;&amp;!document.hidden&amp;&amp;cardRect.bottom&gt;pageRect.top&amp;&amp;cardRect.top&lt;pageRect.bottom;
+    return !window.myMenuOpen&amp;&amp;observedVisible&amp;&amp;!simAway&amp;&amp;!document.hidden&amp;&amp;cardRect.bottom&gt;pageRect.top&amp;&amp;cardRect.top&lt;pageRect.bottom;
   }
   function draw(){rail.style.transform=&#x27;translateX(&#x27;+(-position*step)+&#x27;px)&#x27;;}
   function measure(){step=rail.querySelector(&#x27;.hj-story&#x27;).getBoundingClientRect().width+12;draw();}
@@ -1652,8 +1652,16 @@ html&gt;body{padding:0}&lt;/style&gt;
 })();
 &lt;/script&gt;
 
-&lt;/body&gt;
+&lt;style&gt;.hj-profile,.hj-speaker{cursor:pointer}html.embedded #home-journey-carousel .hj-phone{width:100%;height:100dvh;border:0;border-radius:0}html.embedded #home-journey-carousel{padding:0;margin:0}html.embedded .hj-review{display:none}&lt;/style&gt;&lt;script&gt;
+document.querySelectorAll(&#x27;.hj-profile,.hj-speaker&#x27;).forEach(el=&gt;{el.setAttribute(&#x27;role&#x27;,&#x27;button&#x27;);el.tabIndex=0;const send=()=&gt;parent.postMessage({channel:el.matches(&#x27;.hj-profile&#x27;)?&#x27;home-my&#x27;:&#x27;home-speaker&#x27;},&#x27;*&#x27;);el.addEventListener(&#x27;click&#x27;,send);el.addEventListener(&#x27;keydown&#x27;,e=&gt;{if(e.key===&#x27;Enter&#x27;||e.key===&#x27; &#x27;){e.preventDefault();send()}})});
+window.addEventListener(&#x27;message&#x27;,e=&gt;{if(e.source!==parent)return;if(e.data?.channel===&#x27;my-menu&#x27;){window.myMenuOpen=e.data.open;document.documentElement.classList.add(&#x27;embedded&#x27;)}});
+&lt;/script&gt;&lt;/body&gt;
 &lt;/html&gt;
 "></iframe>
-</body>
+<script>
+const embedded=new URLSearchParams(location.search).get('embedded')==='1',frame=document.querySelector('iframe');
+if(embedded){document.body.style.cssText='margin:0;padding:0';frame.style.cssText='border:0;width:100%;height:100dvh;display:block'}
+window.addEventListener('message',e=>{if(e.source===frame.contentWindow&&['home-my','home-speaker'].includes(e.data?.channel)){if(embedded)parent.postMessage(e.data,location.origin);else location.href='../my/'+(e.data.channel==='home-speaker'?'#speaker':'')}else if(embedded&&e.source===parent&&e.origin===location.origin&&e.data?.channel==='my-menu')frame.contentWindow.postMessage(e.data,'*')});
+if(embedded)frame.addEventListener('load',()=>frame.contentWindow.postMessage({channel:'my-menu',open:true},'*'));
+</script></body>
 </html>
