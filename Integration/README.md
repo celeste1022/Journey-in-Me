@@ -19,3 +19,7 @@ python3 Integration/test_assembly.py . ../personal-source
 ```
 
 The output directory must not already exist. Both branches' publishing workflows run the same assembly script from `main` so an update cannot accidentally publish only one demo. `personal-pages.yml` is the corresponding workflow for the `My-friend` branch.
+
+## Shared display frame
+
+Every public module uses the same `frame.css` and `frame.js`: 390 × 844 desktop phone (height shrinks with the browser viewport), 44px status area, 82px bottom navigation and a separately scrolling content region. On small screens the frame fits the viewport with no decorative border. Original module documents live at `content.html` in the same directory so relative assets and browser-local records keep working. Embedded My/Practice routes bypass the outer frame to avoid nested phones. Home retains its isolated srcdoc sandbox and receives only inline layout overrides.

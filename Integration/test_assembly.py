@@ -14,13 +14,19 @@ with tempfile.TemporaryDirectory() as temp:
     for route in ['home','practice','create','share','my','my-friend','connect-device','practice/create']:
         page=out/route/'index.html'
         assert page.is_file(),route
-        assert 'journey-navigation.js' in page.read_text(),route
-    home=(out/'home/index.html').read_text()
+        assert ('journey-frame.js' if route!='practice/create' else 'journey-navigation.js') in page.read_text(),route
+    home=(out/'home/content.html').read_text()
     assert 'sandbox="allow-scripts"' in home
     assert "channel:'journey-navigate'" in html.unescape(home)
     inner=html.unescape(re.search(r'srcdoc="([\s\S]*?)"\s*>',home).group(1))
     assert "el.setAttribute('role','link')" in inner
     assert "e.source!==f.contentWindow" in home
+    for module in ['home','practice','create','share','my','my-friend','connect-device']:
+        shell=(out/module/'index.html').read_text()
+        assert shell.count('class="journey-phone"')==1,module
+        assert shell.count('class="journey-nav"')==1,module
+        assert (out/module/'content.html').is_file(),module
+    assert 'grid-template-rows:var(--frame-status) minmax(0,1fr) var(--frame-nav)' in (out/'journey-frame.css').read_text()
     assert (out/'create/assets/mist-ambient.m4a').is_file()
     assert (out/'practice/create/assets/mist-ambient.m4a').is_file()
     assert (out/'my-friend/reminder-options/index.html').is_file()

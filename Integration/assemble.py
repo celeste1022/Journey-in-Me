@@ -4,6 +4,7 @@ import shutil
 import sys
 import html
 import re
+from frame import apply_frames
 
 
 def assemble(main, personal, target):
@@ -42,7 +43,7 @@ try{const device=JSON.parse(localStorage.getItem('journey-device'));if(device?.p
     # Home intentionally isolates its srcdoc and permits inline scripts only.
     # Connect it through a small allowlisted message bridge, preserving its sandbox/CSP.
     home=target/'home/index.html'
-    home_text=home.read_text()
+    home_text=home.read_text().replace("else location.href='../my/'","else window.top.location.href='../my/'")
     match=re.search(r'srcdoc="([\s\S]*?)"\s*>',home_text)
     if not match:
         raise SystemExit('Home srcdoc integration point changed')
@@ -77,6 +78,7 @@ location.replace(legacy?'create/'+location.search+hash:'home/'+location.search);
     # Support the former root asset review link.
     (target/'assets-review.html').write_text('<meta http-equiv="refresh" content="0;url=create/assets-review.html">')
     (target/'.nojekyll').touch()
+    apply_frames(target, main/'Integration')
 
 if __name__=='__main__':
     assemble(*sys.argv[1:])

@@ -1,0 +1,22 @@
+/* Each module supplies content only. The shared host owns all phone chrome. */
+html,body{margin:0!important;padding:0!important;width:100%!important;height:100%!important;min-height:0!important;overflow:hidden!important}
+body{display:block!important;background:#f6f6f2!important}
+#review-bar,.review-note,.site-header,.review-panel,.screen-caption,body>aside,.aside,.notes,.status,.statusbar,.home-indicator,.homebar,.bottom-nav,nav#nav,div#nav,nav.nav,.home-tab{display:none!important}
+.studio,.review-layout,.phone-stage{display:block!important;margin:0!important;padding:0!important;width:100%!important;max-width:none!important;height:100%!important;gap:0!important}
+.device,.phone,.shell,#device{width:100%!important;max-width:none!important;height:100dvh!important;min-height:0!important;max-height:none!important;margin:0!important;border:0!important;border-radius:0!important;box-shadow:none!important;zoom:1!important}
+#app{height:100%!important;max-width:none!important;margin:0!important;min-height:0!important;border-radius:0!important}
+.topbar:not(:has(button)):has(>span:only-child){display:none!important}
+.screen,#view{height:100%!important;max-height:none!important;padding-bottom:0!important}
+.device .screen{padding-top:16px!important}
+#device .overlay>iframe{height:100%!important;width:100%!important}
+#home,#module{width:100%!important;min-height:0!important}
+.native-back{top:8px!important}
+/* Home's isolated srcdoc receives this same stylesheet inline. */
+#home-journey-carousel{padding:0!important;margin:0!important;max-width:none!important}
+#home-journey-carousel .hj-phone{width:100%!important;height:100dvh!important;max-height:none!important;min-height:0!important;border:0!important;border-radius:0!important;margin:0!important;box-shadow:none!important}
+#home-journey-carousel .hj-status,#home-journey-carousel .hj-bottom,.hj-review{display:none!important}
+/* The Practice prototype uses a 390px image coordinate system. Keep hit areas aligned. */
+html[data-journey-module=practice] #view{container-type:inline-size}
+html[data-journey-module=practice] #scene{margin-top:-44px;transform-origin:top left;zoom:calc(100cqw / 390px)}
+html[data-journey-module=practice] #scene>img{pointer-events:none}
+html[data-journey-module=practice] .hot[aria-label=Home],html[data-journey-module=practice] .hot[aria-label=Create],html[data-journey-module=practice] .hot[aria-label=Share]{display:none!important}
