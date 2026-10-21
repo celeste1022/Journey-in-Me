@@ -79,6 +79,9 @@ location.replace(legacy?'create/'+location.search+hash:'home/'+location.search);
     (target/'assets-review.html').write_text('<meta http-equiv="refresh" content="0;url=create/assets-review.html">')
     (target/'.nojekyll').touch()
     apply_frames(target, main/'Integration')
+    # Publish the scoped MVP as its own app after the shared wrappers are applied.
+    if (main/'MVP').is_dir():
+        shutil.copytree(main/'MVP', target/'mvp')
 
 if __name__=='__main__':
     assemble(*sys.argv[1:])
