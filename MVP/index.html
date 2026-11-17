@@ -14,7 +14,7 @@ body{background:#E8DFCF;color:#363A32}
 .journey-phone.auth-mode{background:#F3EBDD}
 .journey-nav a{color:#68675B;position:relative;font-size:12px;gap:4px}
 .journey-nav a[aria-current=page]{color:#4F6557}
-.journey-nav a[aria-current=page]:after{content:'';position:absolute;bottom:7px;width:22px;height:2px;background:#4F6557;border-radius:2px}
+.journey-nav a{isolation:isolate}.journey-nav a[aria-current=page]:before{content:'';position:absolute;top:-4px;left:50%;transform:translateX(-50%) rotate(-7deg);width:48px;height:34px;background:#E0E2CF;border-radius:48% 52% 43% 57% / 56% 48% 52% 44%;z-index:-1;pointer-events:none}.journey-nav a[aria-current=page]:after{content:none}
 .journey-nav .qs-icon{width:25px;height:25px;stroke-width:1.55}
 .journey-status{color:#363A32}.journey-nav:after,.auth-mode:after{background:#363A32}
 #loading{background:#F3EBDD;color:#4F6557}body>aside{color:#68675B;line-height:1.9}
