@@ -7,10 +7,11 @@ const complete = {name:'A morning',photo:'art:0',words:'Keep this light.',record
 test('a template preview and whitespace do not satisfy required content',()=>{
   assert.deepEqual(Object.keys(cardErrors({name:'  ',words:'\n ',art:0,mixed:false})),['name','photo','words','sound']);
 });
-test('a saved mix cannot bypass missing recording or background sound',()=>{
-  assert.ok(cardErrors({...complete,recording:null}).sound);
-  assert.ok(cardErrors({...complete,sound:null}).sound);
-  assert.ok(cardErrors({...complete,mixed:false}).sound);
+test('either audio source is enough and mixing is optional',()=>{
+  assert.deepEqual(cardErrors({...complete,recording:null,mixed:false}),{});
+  assert.deepEqual(cardErrors({...complete,sound:null,mixed:false}),{});
+  assert.deepEqual(cardErrors({...complete,mixed:false}),{});
+  assert.ok(cardErrors({...complete,recording:null,sound:null,mixed:true}).sound);
 });
 test('each completed required field clears only its own error',()=>{
   const draft={name:complete.name,photo:null,words:'',recording:null};
