@@ -39,6 +39,9 @@ try{const device=JSON.parse(localStorage.getItem('journey-device'));if(device?.p
     if old not in text:
         raise SystemExit('My speaker integration point changed')
     text=text.replace(old,new)
+    text=text.replace("function orders(){", """try{const created=JSON.parse(localStorage.getItem('journey-created-gifts')||'[]');if(Array.isArray(created))created.filter(g=>g&&typeof g.id==='string'&&/^gift-[a-z0-9-]+$/.test(g.id)).forEach(g=>{if(!ordersData.some(o=>o.id===g.id))ordersData.unshift({id:g.id,type:'Gift',name:'A gift for '+esc(g.recipient||'you'),creator:'Your creation',source:'Created',price:'—',status:'Created · demo',tab:'All',createdGift:true,date:esc(g.date||''),recipient:esc(g.recipient||'you')})})}catch{}
+function orders(){""")
+    text=text.replace("function orderDetail(id){const o=ordersData.find(x=>x.id===id);", """function orderDetail(id){const o=ordersData.find(x=>x.id===id);if(o?.createdGift){page('order');$('content').innerHTML='<h2>Your gift</h2><div class="card"><h3>'+o.name+'</h3><small>Created with care</small></div><div class="row">Created<span>'+o.date+'</span></div><p>Recipient: '+o.recipient+'</p><small class="demoNote">Demo creation · no payment or shipment has been made.</small>';return;}""")
     my.write_text(text)
     # Home intentionally isolates its srcdoc and permits inline scripts only.
     # Connect it through a small allowlisted message bridge, preserving its sandbox/CSP.

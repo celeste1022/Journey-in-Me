@@ -15,11 +15,11 @@ ROUTES={'home':'Home','practice':'Practice','create':'Create','share':'Share','m
 def wrapper(module, prefix='../'):
     active=module if module in ['home','practice','create','share'] else ('share' if module=='my-friend' else 'home')
     nav=''.join(f'<a href="{prefix}{key}/'+('#/create' if key=='create' else '')+'"'+(' aria-current="page"' if active==key else '')+f'><svg viewBox="0 0 24 24" aria-hidden="true">{PATHS[label]}</svg><span>{label}</span></a>' for key,label in list(ROUTES.items())[:4])
-    return f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#f6f6f2"><title>{ROUTES[module]} · Journey in Me</title><link rel="stylesheet" href="{prefix}journey-frame.css?v=1"></head><body>
+    return f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#f6f6f2"><title>{ROUTES[module]} · Journey in Me</title><link rel="stylesheet" href="{prefix}journey-frame.css?v=20261118-immersive"></head><body>
 <main class="journey-phone" aria-label="Journey in Me mobile app">
 <div class="journey-status" aria-hidden="true"><span>9:41</span><span class="journey-status-icons"><svg viewBox="0 0 24 24"><path d="M4 20v-4M9 20v-8M14 20V8M19 20V4"/></svg><svg viewBox="0 0 24 24"><path d="M2 8a16 16 0 0 1 20 0M5 12a11 11 0 0 1 14 0M9 16a5 5 0 0 1 6 0"/><circle cx="12" cy="20" r=".5"/></svg><svg viewBox="0 0 28 24"><rect x="2" y="7" width="21" height="11" rx="2"/><path d="M25 10v5"/><path d="M5 10h15v5H5Z" fill="currentColor" stroke="none"/></svg></span></div>
 <iframe id="journey-content" class="journey-content" title="{ROUTES[module]}" allow="microphone" referrerpolicy="same-origin"></iframe>
-<nav class="journey-nav" aria-label="Main navigation">{nav}</nav></main><script src="{prefix}journey-frame.js?v=1"></script></body></html>'''
+<nav class="journey-nav" aria-label="Main navigation">{nav}</nav></main><script src="{prefix}journey-frame.js?v=20261118-immersive"></script></body></html>'''
 
 def apply_frames(target, integration):
     target, integration=Path(target),Path(integration)
