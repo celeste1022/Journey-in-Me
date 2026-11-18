@@ -1,4 +1,4 @@
-import {themes,templates,artNames,sounds,collections,seedCards,seedAlbums,today,uid,newCard,newAlbum} from './data.js';
+import {themes,templates,artNames,sounds,collections,seedCards,seedAlbums,today,uid,newCard,newAlbum} from './data.js?v=20261118-album-samples';
 import {SoundPlayer} from './audio.js';
 import {cardErrors,cardFieldLabels} from './card-validation.js';
 import {motionIntent,beforeRender,afterRender,animateDialog,installMotion} from './motion.js';
@@ -10,6 +10,13 @@ const read=()=>{try{return JSON.parse(localStorage.getItem(KEY))}catch{return nu
 const db=read()||{cards:clone(seedCards),albums:clone(seedAlbums),drafts:[],giftDrafts:[],wishlist:[],snapshots:{}};
 db.albumDrafts ||= [];
 db.purchasedAlbumIds ||= [];
+// Seed a few demo purchases once, while preserving existing purchases and creations.
+if(!db.demoPurchasedAlbumsV1){
+ db.purchasedAlbumIds=[...new Set([...db.purchasedAlbumIds,'col-0','col-2','col-5','col-8'])];
+ db.demoPurchasedAlbumsV1=true;
+ try{localStorage.setItem(KEY,JSON.stringify(db))}catch{}
+}
+
 function isPurchasedAlbum(c){return !c.own&&db.purchasedAlbumIds.includes(c.id)}
 function completeAlbumPurchase(){if(ui.orderAlbumId&&collections.some(c=>c.id===ui.orderAlbumId)&&!db.purchasedAlbumIds.includes(ui.orderAlbumId)){db.purchasedAlbumIds.push(ui.orderAlbumId);persist()}}
 
