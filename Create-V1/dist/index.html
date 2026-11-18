@@ -25,6 +25,44 @@ body,button,input,textarea,select{font-family:var(--sans);font-size:15px;line-he
 dialog{padding:24px;background:var(--card);border:1px solid var(--border);border-radius:16px;box-shadow:0 16px 64px #363A3220}dialog h2,.dialog-content h2{font-size:27px;line-height:1.3;margin-bottom:16px}dialog p,.dialog-content p{font-size:15px;line-height:1.65;margin:12px 0 24px}.dialog-content .stack{gap:12px}#toast{background:var(--ink);color:var(--card);font-size:14px;line-height:1.5;padding:12px 16px;border-radius:10px}.cinema-top{padding:8px 16px;min-height:52px}.cinema-copy{padding:16px 24px 24px}.cinema-copy h1{font-size:28px;line-height:1.25}.cinema-caption{font-size:14px;line-height:1.65;margin-top:12px}.cinema-counter{font-size:11px;letter-spacing:.12em;margin-bottom:12px}.cinema-footer{padding:8px 24px 12px;background:var(--paper)}.cinema-progress-segment:before{background:var(--border)}.cinema-progress-segment[aria-current=step]:before{background:#A8B29C}.cinema-scene[data-stage=bedside] .cinema-sound-mark{background:#F3EBDDDD}
 @media(max-width:360px){.content{padding-left:20px;padding-right:20px}.sticky-actions{padding-left:20px;padding-right:20px}.creation-entry{padding:16px 12px;gap:12px}.creation-entry h2{font-size:23px}.major-tabs button{font-size:13px}.creation-grid{gap:20px 10px}.sound-grid{gap:20px 12px}}
 @media(max-height:740px){.page-heading{margin-bottom:24px}.cinema-copy{padding:12px 24px}.cinema-copy h1{font-size:24px}.media-player{padding:12px}.detail-view .page-heading h1{font-size:28px}}
+</style><style id="quiet-sand-type-a">
+/* Quiet Sand type system A — 2026-11-18. Semantic roles, default text size. */
+:root{
+ --qs-display:ui-serif,"New York","Source Han Serif SC","Source Han Serif","Songti SC",serif;
+ --qs-ui:-apple-system,BlinkMacSystemFont,"SF Pro Text","PingFang SC",system-ui,sans-serif;
+ --serif:var(--qs-display);--sans:var(--qs-ui);
+ --qs-root:2rem;--qs-page:1.75rem;--qs-section:1.375rem;
+ --qs-body:1.0625rem;--qs-support:.9375rem;--qs-meta:.8125rem;--qs-nav:.75rem;
+}
+html{font-size:100%}
+body,button,input,textarea,select{font-family:var(--qs-ui);font-size:var(--qs-body);line-height:1.5294}
+h1,h2,h3{font-family:var(--qs-display);font-weight:400;letter-spacing:normal;overflow-wrap:anywhere}
+.page-heading h1,.page-heading h1.long-title,.detail-view .page-heading h1,.cinema-copy h1{font-size:var(--qs-page);line-height:1.2857}
+[data-route="create"] .page-heading h1,[data-route="library"] .page-heading h1,[data-route="explore"] .page-heading h1{font-size:var(--qs-root);line-height:1.25}
+h2,h3,.creation-entry h2,.template-caption h2,.section-title,.order-summary h2,.share-preview>h2{font-size:var(--qs-section);line-height:1.3636}
+p,.album-description{font-size:var(--qs-body);line-height:1.5294}
+.subtitle,.page-heading .subtitle,.creation-entry p,.creation-links small,.option-row small,.template-caption p,.mix-track small,.range-label,.cinema-caption,.photo-upload small,.demo-check,dialog p,.dialog-content p{font-family:var(--qs-ui);font-size:var(--qs-support);line-height:1.4667;letter-spacing:normal}
+.option-row strong,.memory-page .memory-tile span,.grid-creation strong,.columns-2 .grid-creation strong,.sound-tile strong,.artist-grid button span,.track-row strong,.mix-track strong,.photo-upload strong,.intro-player,.creation-links button{font-family:var(--qs-ui);font-size:var(--qs-body);font-weight:500;line-height:1.4118;letter-spacing:normal;white-space:normal;overflow:visible;text-overflow:clip;overflow-wrap:anywhere;-webkit-line-clamp:unset}
+.field{font-family:var(--qs-ui);font-size:var(--qs-support);font-weight:500;line-height:1.4667}
+.field input,.field textarea,.field select,.search-field input{font-family:var(--qs-ui);font-size:var(--qs-body);line-height:1.5294;font-weight:400}
+.primary,.secondary-button{font-family:var(--qs-ui);font-size:var(--qs-body);font-weight:600;line-height:1.4118;letter-spacing:normal;white-space:normal;height:auto;min-height:48px}
+.text-button,.top-action,.detail-toolbar button,.major-tabs button,.minor-tabs button,.chip-tabs button,.preview-switch button,.cinema-secondary .text-button,.cinema-audio-note .text-button{font-family:var(--qs-ui);font-size:var(--qs-support);font-weight:500;line-height:1.4667;letter-spacing:normal;white-space:normal}
+.meta,.muted,.byline,.grid-creation small,.sound-tile small,.draft-status,.player-times,.demo-label,.cinema-counter,.cinema-audio-note,.share-channels button{font-family:var(--qs-ui);font-size:var(--qs-meta);line-height:1.3846;letter-spacing:normal;white-space:normal}
+.eyebrow,.section-label,.album-selection-count,.inline-error,.form-error,.card-validation-summary,.card-field-error,#toast,.saved-banner{font-family:var(--qs-ui);font-size:var(--qs-support);line-height:1.4667;letter-spacing:normal}
+dialog h2,.dialog-content h2,.empty h2,.record-permission h2{font-family:var(--qs-ui);font-size:var(--qs-section);font-weight:600;line-height:1.3636}
+.record-time{font-family:var(--qs-ui);font-size:2.5rem;font-weight:400;line-height:1.2;font-variant-numeric:tabular-nums}
+.player-times{font-variant-numeric:tabular-nums}
+.bottom-nav span,.bottom-nav a{font-size:var(--qs-nav)}
+.creation-grid,.creation-grid.columns-2{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 16px}
+.grid-cell,.grid-creation,.creation-entry>span,.option-row>span,.mix-track .row>span{min-width:0}
+.page-heading{margin-bottom:24px}.page-heading .subtitle{margin-top:12px}
+.creation-entry h2{margin:0}.creation-entry p{margin-top:8px}
+.memory-page .memory-tile{height:auto;min-height:150px}
+.memory-page .memory-tile-custom{min-height:72px}
+.cinema-copy{min-height:0}.cinema-copy h1{max-width:100%}
+:lang(zh) .page-heading h1,:lang(zh) h2,:lang(zh) h3{font-family:"Source Han Serif SC","Source Han Serif","Songti SC",serif}
+@media(max-width:360px){.creation-grid{gap:20px 12px}}
+@media(max-width:320px){.memory-grid,.creation-grid,.sound-grid{grid-template-columns:1fr}}
 </style></head><body><div id="review-bar"><a href="#/home" class="wordmark">Journey in Me</a><div><span>Create V1 · interactive demo</span><a href="assets-review.html">预览图清单</a><button id="review-menu" aria-label="Open Create V1 guide">Guide</button></div></div><main class="device" id="device"><div class="statusbar"><span>9:41</span><span id="status-icons" aria-hidden="true"></span></div><div id="app"></div><div class="home-indicator"></div></main><dialog id="modal"></dialog><div id="toast" role="status" aria-live="polite"></div><script src="assets/lucide.min.js"></script><script src="assets/qrcode.js"></script><script type="module" src="app.js"></script><script>(()=>{const QS_PATHS={
  microphone:'<path d="M9 4q3-3 6 0l1 8q0 2-4 2t-4-2ZM5 11v2a7 7 0 0 0 14 0v-2M12 20v2M9 22h6"/>',
  calendar:'<rect x="3" y="5" width="18" height="16" rx="3"/><path d="M8 2v6M16 2v6"/><circle cx="9" cy="12" r=".8"/><circle cx="15" cy="12" r=".8"/><circle cx="9" cy="17" r=".8"/><circle cx="15" cy="17" r=".8"/>',
