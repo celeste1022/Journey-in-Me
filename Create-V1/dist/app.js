@@ -97,11 +97,54 @@ function speakerView(){const speaker=ui.speaker;return shell(`<div class="speake
 function shareView(isExport=false){const c=ui.shareItem||currentItem();const wholeGift=c.type==='gift';const preview=wholeGift?(c.items?.[0]||c.blessing||{name:collections.find(x=>x.id===c.collection)?.title||'A gift for you',art:0}):c;return shell(`<div class="share-preview">${wholeGift?`<h2>A gift for ${esc(c.recipient)}</h2><p class="meta">${c.items?.length||1} ${c.items?.length>1?'creations':'creation'} · Made for you</p>`:''}${paperCard(preview,{large:true,qr:true})}${c.type==='album'?`<p class="meta center">Album · ${c.cardIds?.length||0} sound cards</p>`:''}</div>${isExport?'':`<div class="share-channels"><button data-action="share-channel" data-channel="Instagram">${icon('camera')}<span>Instagram</span></button><button data-action="share-channel" data-channel="WeChat">${icon('message-circle')}<span>WeChat</span></button><button data-action="native-share">${icon('ellipsis')}<span>More</span></button><button data-action="copy-link">${icon('link')}<span>Copy link</span></button></div>`}<p class="meta center space-top">Demo link · available on this device</p>`,{title:'',footer:isExport?primary('Save image to Photos','download-image'):''})}
 function writeView(){const step=ui.writingStep;const data=[['Connect your speaker','Turn on your speaker and check the connection.','Check connection'],['Insert your DIY card','Place your card in the speaker.','Check card'],['Ready to write','The speaker and your card are ready.','Start writing'],['Writing your card','Keep the speaker connected and the card in place.',''],['Your card is ready','Your sound is ready to play on your speaker.','Back to your creation']][step];return shell(`<p class="demo-label">HARDWARE SIMULATION</p><div class="write-step-indicator">${[0,1,2,3,4].map((n)=>`<span class="${step>=n?'complete':''}">${n+1}</span>`).join('')}</div><div class="speaker-art writing-speaker"><div class="speaker-crop"><img src="assets/speaker-transparent.png" alt="Mountain speaker"></div></div><h2 class="center">${data[0]}</h2><p class="subtitle center">${data[1]}</p>${step===3?'<progress id="write-progress" value="0" max="100" aria-label="Writing progress"></progress><p class="meta center" id="write-percent">0%</p>':''}${step===0?`<label class="demo-check"><input type="checkbox" name="demo-connected" ${ui.hardwareConnected?'checked':''}> Simulate a connected speaker</label>`:''}${step===1?`<label class="demo-check"><input type="checkbox" name="demo-card" ${ui.hardwareCard?'checked':''}> Simulate an inserted card</label><label class="demo-check"><input type="checkbox" name="demo-used-card" ${ui.usedCard?'checked':''}> Card already has content</label>`:''}<p class="meta center space-top">This demo does not connect to a physical speaker.</p>`,{title:'Write to my DIY cards',footer:data[2]?primary(data[2],'write-next'):secondary('Simulate a disconnection','write-fail')})}
 function checkoutView(){return shell(`<p class="demo-label">SHOPIFY HANDOFF · DEMO</p><div class="order-summary">${icon('shopping-bag')}<div><h2>${esc(ui.order)}</h2><p class="subtitle">Order details, price and payment are confirmed in Shopify.</p></div></div>${row('Delivery','Shipping address is entered at checkout','checkout-info')}${row('Payment','No payment is collected in this demo','checkout-info')}<p class="meta space-top">Choose a simulated result to test the return to Journey in Me.</p><div class="stack space-top">${primary('Simulate successful payment','order-success')}${secondary('Simulate cancelled checkout','order-cancel')}${textButton('Simulate an unverified result','order-pending')}</div>`,{title:ui.order==='Card print'?'Print your card':'Checkout'})}
+
+/* Quiet Sand A — light aged paper, flat topic illustrations.
+   Topic illustrations are separate from the approved navigation SVG registry. */
+const memoryArtwork={
+ camera:'<rect x="6" y="12" width="36" height="27" rx="5"/><path d="m15 12 3-6h12l3 6"/><circle cx="24" cy="25" r="8"/><path class="topic-accent" d="M24 20v2m0 6v2m-5-5h2m6 0h2"/>',
+ heart:'<path d="M24 38 9 24C-1 13 15 3 24 15 33 3 49 13 39 24Z"/><path class="topic-accent" d="m37 6 2-3m3 9 4-1"/>',
+ spark:'<path d="M17 31c0-5-6-6-6-14a13 13 0 0 1 26 0c0 8-6 9-6 14ZM18 36h12m-10 5h8M24 31V20m-5-3 5 3 5-3"/><path class="topic-accent" d="M24 1v-1M5 5l3 3m32 0 3-3"/>',
+ people:'<circle cx="16" cy="15" r="6"/><circle cx="33" cy="17" r="5"/><path d="M4 39v-5a12 12 0 0 1 24 0v5m0-13c9-4 16 3 16 10v3"/><path class="topic-accent" d="m21 39 5-3 5 3"/>',
+ flag:'<path d="M8 42V33h11v-8h12v17M22 25V5l17 4-17 6M5 42h37"/><path class="topic-accent" d="m28 8 6 1-6 2"/>',
+ letter:'<rect x="5" y="12" width="38" height="29" rx="4"/><path d="m6 14 18 14 18-14m-36 25 12-12m24 12L30 27"/><path class="topic-accent" d="M24 3v4m-8-2 2 3m14-3-2 3"/>',
+ pencil:'<path d="m9 32-2 9 9-2L39 16 32 9Zm18-18 7 7M9 32l7 7"/><path class="topic-accent" d="M24 41h17"/>'
+};
+const memoryArtKeys=['camera','heart','spark','people','flag','letter'];
+function memoryTile(title,action,data,key,custom=false){
+ const paths=memoryArtwork[key]||memoryArtwork.pencil;
+ return '<button type="button" class="memory-tile'+(custom?' memory-tile-custom':'')+'" data-action="'+action+'" '+attr(data)+'><svg class="memory-art" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.55" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+paths+'</svg><span>'+esc(title)+'</span></button>';
+}
+function memoryChoices(items,action,themeIndex){
+ return '<div class="memory-grid">'+items.map((t,i)=>memoryTile(typeof t==='string'?t:t.title,action,action==='memory-theme'?{index:i}:{value:t},action==='memory-theme'?(t.custom?'pencil':memoryArtKeys[i]):memoryArtKeys[themeIndex])).join('')+'</div>';
+}
+const memoryStyle=document.createElement('style');
+memoryStyle.id='quiet-sand-memory-a';
+memoryStyle.textContent=`
+.memory-page{position:relative;isolation:isolate;background-color:#F3EBDD}
+.memory-page::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.035;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='paper'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.74' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Cpath fill='%23363A32' filter='url(%23paper)' d='M0 0h180v180H0z'/%3E%3C/svg%3E")}
+.memory-page .page-heading{margin-bottom:24px}
+.memory-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.memory-tile{appearance:none;box-sizing:border-box;display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;gap:20px;min-height:150px;width:100%;margin:0;padding:20px 16px 16px;border:1px solid #D9CDBB;border-radius:12px;background:rgba(251,246,237,.76);color:#363A32;text-align:left;box-shadow:none;cursor:pointer;transition:background-color .16s,border-color .16s}
+.memory-tile span{font:500 15px/1.45 -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;overflow-wrap:anywhere}
+.memory-tile .memory-art{width:44px;height:44px;flex-shrink:0;color:#5D7061;opacity:.9}
+.memory-art .topic-accent{stroke:#AD7967}
+.memory-tile:hover{background:#F5EFDF;border-color:#A8B29C}
+.memory-tile:active{background:#E7E4D5;border-color:#4F6557}
+.memory-tile:focus-visible{outline:2px solid #4F6557;outline-offset:3px}
+.memory-tile-custom{margin-top:12px;min-height:72px;flex-direction:row;align-items:center;justify-content:flex-start;gap:16px;background:transparent}
+.memory-tile-custom .memory-art{width:30px;height:30px}
+.memory-subtopics .memory-tile{min-height:142px;gap:16px}
+.memory-subtopics .memory-art{width:30px;height:30px}
+@media(max-width:360px){.memory-tile{padding:16px 12px;min-height:140px}.memory-grid{gap:10px}.memory-tile span{font-size:14px}}
+@media(prefers-reduced-motion:reduce){.memory-tile{transition:none}}
+`;
+document.head.append(memoryStyle);
+
 function render(){const motionBefore=beforeRender(app,route);giftCinema?.destroy();giftCinema=null;let html;switch(route){
 case 'home':html=`<div class="view"><div class="content home-screen"><h1 class="brand">Journey in Me</h1><section class="practice-count"><p>You’ve practiced for</p><strong>356</strong><span>days.</span></section><button class="home-link" data-go="reflection">Reflection ${icon('chevron-right')}</button><button class="home-link" data-go="friends">Friends ${icon('chevron-right')}</button></div>${nav('home')}</div>`;break;
 case 'create':html=shell(`<div class="creation-menu">${[['memory','bookmark','Memory','A moment worth keeping.'],['gift','gift','Gift','Something made for someone.'],['new-simple','square-pen','A Simple Card','An image, a few words, your voice.'],['new-album','layers','My Album','Bring your sound cards together.']].map(([action,i,t,d])=>`<button class="creation-entry" data-action="${action}"><span class="entry-mark">${icon(i)}</span><span><h2>${t}</h2><p>${d}</p></span>${icon('chevron-right')}</button>`).join('')}</div><div class="creation-links"><button data-go="library"><span>My Creativity<small>The things you’ve made.</small></span>${icon('chevron-right')}</button><button data-go="explore"><span>What a creative world !?<small>Explore warm creations shared by everyone.</small></span>${icon('chevron-right')}</button></div>`,{title:'Create',back:false,navigation:'create'});break;
-case 'memory':html=shell(memoryThemes().map((t,i)=>row(t.title,t.custom?'Your theme':'','memory-theme',{index:i})).join('')+customOption('Create a custom theme','A category that feels like you.','custom-theme'),{title:'What would you like to remember?',subtitle:'Start with what made this moment meaningful.'});break;
-case 'subtheme':{const theme=selectedMemoryTheme();html=shell(memorySubthemes(theme).map(t=>row(t,'','memory-subtheme',{value:t})).join('')+customOption('Create a custom moment','Give this memory its own name.','custom-subtheme'),{title:theme.title,subtitle:theme.description||'What would you like to keep?'});break;}
+case 'memory':html=shell(memoryChoices(memoryThemes(),'memory-theme')+memoryTile('Create a custom theme','custom-theme',{},'pencil',true),{className:'memory-page',title:'What would you like to remember?',subtitle:'Start with what made this moment meaningful.'});break;
+case 'subtheme':{const theme=selectedMemoryTheme();html=shell(memoryChoices(memorySubthemes(theme),'memory-subtheme',ui.theme)+memoryTile('Create a custom moment','custom-subtheme',{},'pencil',true),{className:'memory-page memory-subtopics',title:theme.title,subtitle:theme.description||'What would you like to keep?'});break;}
 case 'template':html=templateView();break;
 case 'editor':html=editorView();break;
 case 'photo':html=photoView();break;
